@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "914409746053",
+    "project_id": "centralauto-39f3e",
+    "storage_bucket": "centralauto-39f3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914409746053:android:bf3626bdb326d2ee5ec3ec",
+        "android_client_info": {
+          "package_name": "com.example.central_auto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "914409746053-3fr5v08hg77b0m8fqtidluhvcd2nhuvb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4rTV2mbMv1SWAFJWohE6JY-wMbMprPZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "914409746053-3fr5v08hg77b0m8fqtidluhvcd2nhuvb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
