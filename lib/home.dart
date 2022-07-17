@@ -1,3 +1,4 @@
+import 'package:central_auto/AuthSms/function.dart';
 import 'package:central_auto/AuthSms/sing_in.dart';
 import 'package:central_auto/auth/auth.dart';
 import 'package:flutter/material.dart';
@@ -32,31 +33,41 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Searchection(),
-              CarsSection()
+              CarsSection(),
+              Container(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await deconnection();
+                  },
+                  child: Icon(Icons.logout),
+                  style: ElevatedButton.styleFrom(shape: CircleBorder()),
+                ),
+              )
 
-              // CustomScrollView(
-              //   slivers: [
-              //     SliverList(
-              //       delegate: SliverChildBuilderDelegate(
-              //         (BuildContext context, int index) {
-              //           return Card(
-              //             margin: const EdgeInsets.all(15),
-              //             child: Container(
-              //               color: Colors.blue[100 * (index % 9 + 1)],
-              //               height: 80,
-              //               alignment: Alignment.center,
-              //               child: Text(
-              //                 "Item $index",
-              //                 style: const TextStyle(fontSize: 30),
-              //               ),
-              //             ),
-              //           );
-              //         },
-              //         childCount: 1000, // 1000 list items
-              //       ),
-              //     ),
-              //   ],
-              // )
+/*                CustomScrollView(
+                 slivers: [
+                   SliverList(
+                     delegate: SliverChildBuilderDelegate(
+                       (BuildContext context, int index) {
+                         return Card(
+                           margin: const EdgeInsets.all(15),
+                           child: Container(
+                             color: Colors.blue[100 * (index % 9 + 1)],
+                             height: 80,
+                             alignment: Alignment.center,
+                             child: Text(
+                               "Item $index",
+                               style: const TextStyle(fontSize: 30),
+                             ),
+                           ),
+                         );
+                       },
+                       childCount: 1000, // 1000 list items
+                     ),
+                   ),
+                 ],
+               )
+ */
             ],
           ),
         ));

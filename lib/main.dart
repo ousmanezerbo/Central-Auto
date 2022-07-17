@@ -1,3 +1,5 @@
+import 'package:central_auto/AuthSms/sing_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,11 +10,12 @@ import 'home.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  final _auth = FirebaseAuth.instance;
 
   // This widget is the root of your application.
   @override
@@ -20,8 +23,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Central Auto',
-      theme: ThemeData.dark(),
-      home: const MyHomePage(),
+      //theme: ThemeData.dark(),
+      home: StreamBuilder<User?>(
+        stream: _auth.authStateChanges(),
+        builder: (context, snapshot) {
+          return snapshot.data == null ? const SignIn() : const MyAppHome();
+        },
+      ),
     );
   }
 }
