@@ -98,7 +98,7 @@ class _MyAppBarState extends State<MyAppBar> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) {
-              return SignIn();
+              return MyAppBarFilm();
             },
             fullscreenDialog: true,
           ));

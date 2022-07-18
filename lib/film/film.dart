@@ -2,6 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'add_movie_page.dart';
 
+class MyAppBarFilm extends StatefulWidget {
+  const MyAppBarFilm({Key? key}) : super(key: key);
+
+  @override
+  State<MyAppBarFilm> createState() => _MyAppBarFilmState();
+}
+
+class _MyAppBarFilmState extends State<MyAppBarFilm> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
+      home: const AppBarfilm(),
+    );
+  }
+}
+
 class AppBarfilm extends StatelessWidget {
   const AppBarfilm({Key? key}) : super(key: key);
 
@@ -9,11 +27,11 @@ class AppBarfilm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text('Central Auto'),
         ),
         leading: IconButton(
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) {
@@ -44,11 +62,11 @@ class _MoviesInformationState extends State<MoviesInformation> {
       stream: _movieStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
+          return const Text("Loading");
         }
 
         return ListView(
@@ -59,7 +77,7 @@ class _MoviesInformationState extends State<MoviesInformation> {
               padding: const EdgeInsets.all(10),
               child: Row(
                 children: [
-                  Center(),
+                  const Center(),
                   SizedBox(
                     width: 200,
                     /* height: 200, */
