@@ -1,8 +1,24 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'add_movie_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-/* class MyAppBarFilm extends StatefulWidget {
+import '../film/add_movie_page.dart';
+import '../home.dart';
+
+class carPage extends StatefulWidget {
+  const carPage({Key? key}) : super(key: key);
+
+  @override
+  State<carPage> createState() => _carPageState();
+}
+
+class _carPageState extends State<carPage> {
+  @override
+  Widget build(BuildContext context) {
+    return const MyAppBarFilm();
+  }
+}
+
+class MyAppBarFilm extends StatefulWidget {
   const MyAppBarFilm({Key? key}) : super(key: key);
 
   @override
@@ -12,13 +28,12 @@ import 'add_movie_page.dart';
 class _MyAppBarFilmState extends State<MyAppBarFilm> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const AppBarfilm(),
+      home: AppBarfilm(),
     );
   }
-} */
+}
 
 class AppBarfilm extends StatelessWidget {
   const AppBarfilm({Key? key}) : super(key: key);
@@ -27,6 +42,7 @@ class AppBarfilm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Center(
           child: Text('Central Auto'),
         ),
@@ -41,8 +57,15 @@ class AppBarfilm extends StatelessWidget {
             ));
           },
         ),
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const SearchPage())),
+              icon: const Icon(Icons.search))
+        ],
       ),
       body: MoviesInformation(),
+      //appBar: const MyAppBar(),
     );
   }
 }

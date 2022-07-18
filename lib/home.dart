@@ -1,6 +1,3 @@
-import 'package:central_auto/AuthSms/function.dart';
-import 'package:central_auto/AuthSms/sing_in.dart';
-import 'package:central_auto/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'film/film.dart';
 
@@ -9,7 +6,7 @@ class MyAppHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomePage(),
       //body: Text('Hello word'),
@@ -28,21 +25,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: MyAppBar(),
+        appBar: const MyAppBar(),
         body: SingleChildScrollView(
           child: Column(
-            children: [
+            children: const [
               Searchection(),
               CarsSection(),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await deconnection();
-                  },
-                  child: Icon(Icons.logout),
-                  style: ElevatedButton.styleFrom(shape: CircleBorder()),
-                ),
-              )
+              /* ElevatedButton(
+                onPressed: () async {
+                  await deconnection();
+                },
+                style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                child: const Icon(Icons.logout),
+              ) */
 
 /*                CustomScrollView(
                  slivers: [
@@ -75,7 +70,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
-  Size get preferredSize => new Size.fromHeight(60);
+  @override
+  Size get preferredSize => const Size.fromHeight(56);
   const MyAppBar({Key? key}) : super(key: key);
 
   @override
@@ -88,9 +84,9 @@ class _MyAppBarState extends State<MyAppBar> {
     return AppBar(
       automaticallyImplyLeading: false,
       centerTitle: true,
-      title: Text('Central Auto'),
+      title: const Text('Central Auto'),
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.menu,
           color: Colors.white,
           size: 30,
@@ -98,7 +94,7 @@ class _MyAppBarState extends State<MyAppBar> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) {
-              return MyAppBarFilm();
+              return const MyAppBarFilm();
             },
             fullscreenDialog: true,
           ));
@@ -108,7 +104,7 @@ class _MyAppBarState extends State<MyAppBar> {
         IconButton(
             onPressed: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => const SearchPage())),
-            icon: Icon(Icons.search))
+            icon: const Icon(Icons.search))
       ],
     );
   }
@@ -159,39 +155,39 @@ class _SearchectionState extends State<Searchection> {
     return Container(
       height: 100,
       color: Colors.grey[200],
-      padding: EdgeInsets.fromLTRB(10, 25, 10, 10),
+      padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
       child: Column(
         children: [
           Row(
             children: [
               Expanded(
                 child: Container(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Recherche',
-                        contentPadding: EdgeInsets.all(10),
-                        border: InputBorder.none),
-                  ),
-                  padding: EdgeInsets.only(left: 35),
+                  padding: const EdgeInsets.only(left: 35),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Colors.grey,
                           blurRadius: 4,
                           offset: Offset(0, 3),
                         ),
                       ]),
+                  child: const TextField(
+                    decoration: InputDecoration(
+                        hintText: 'Recherche',
+                        contentPadding: EdgeInsets.all(10),
+                        border: InputBorder.none),
+                  ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Container(
                 height: 50,
                 width: 50,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.amber,
                   boxShadow: [
                     BoxShadow(
@@ -203,8 +199,8 @@ class _SearchectionState extends State<Searchection> {
                 ),
                 child: ElevatedButton(
                   onPressed: () {},
-                  child: Icon(Icons.search),
-                  style: ElevatedButton.styleFrom(shape: CircleBorder()),
+                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                  child: const Icon(Icons.search),
                 ),
               ),
             ],
@@ -248,7 +244,7 @@ class _CarsSectionState extends State<CarsSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       color: Colors.white,
       child: Column(
         children: carslist.map((car) {
@@ -264,7 +260,7 @@ class _CarsSectionState extends State<CarsSection> {
 
 class CarCard extends StatefulWidget {
   final Map carData;
-  CarCard(this.carData);
+  const CarCard(this.carData);
 
   @override
   State<CarCard> createState() => _CarCardState();
@@ -278,10 +274,10 @@ class _CarCardState extends State<CarCard> {
     return Container(
       height: 300,
       //width: double.infinity,
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: Colors.blue,
-          borderRadius: BorderRadius.all(
+          borderRadius: const BorderRadius.all(
             Radius.circular(18),
           ),
           boxShadow: [
@@ -289,7 +285,7 @@ class _CarCardState extends State<CarCard> {
               color: Colors.grey.shade200,
               spreadRadius: 4,
               blurRadius: 6,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             )
           ]),
       child: Column(

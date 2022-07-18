@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
   void SendOtpCode() {
     loading = true;
     setState(() {});
-    final _auth = FirebaseAuth.instance;
+    final auth = FirebaseAuth.instance;
     if (phoneNumber.isNotEmpty) {
       authWithPhoneNumber(
         phoneNumber,
@@ -32,7 +32,7 @@ class _SignInState extends State<SignIn> {
                   )));
         },
         onAutoVerify: (v) async {
-          await _auth.signInWithCredential(v);
+          await auth.signInWithCredential(v);
         },
         onFailed: (e) {
           print('Le code eroneee');
@@ -54,11 +54,11 @@ class _SignInState extends State<SignIn> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Inscription',
                     style: TextStyle(color: Colors.black, fontSize: 40),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Image.asset(
@@ -68,7 +68,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               /* const Text(
@@ -86,8 +86,8 @@ class _SignInState extends State<SignIn> {
                 onChanged: (value) {
                   phoneNumber = value.completeNumber;
                 },
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.mail),
+                decoration: const InputDecoration(
+                  prefixIcon: Icon(Icons.mail),
                   hintText: 'Numéro',
                   border: OutlineInputBorder(
                       // borderSide: BorderSide.none,
@@ -105,10 +105,10 @@ class _SignInState extends State<SignIn> {
                         padding: const EdgeInsets.symmetric(vertical: 15)),
                     onPressed: loading ? null : SendOtpCode,
                     child: loading
-                        ? CircularProgressIndicator(
+                        ? const CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation(Colors.white),
                           )
-                        : Text(
+                        : const Text(
                             'Sing In ',
                             style: TextStyle(fontSize: 20),
                           ),

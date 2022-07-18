@@ -1,11 +1,8 @@
 import 'package:central_auto/AuthSms/sing_in.dart';
+import 'package:central_auto/navBar/main_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'film/film.dart';
-import 'film/add_movie_page.dart';
-import 'home.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +24,9 @@ class MyApp extends StatelessWidget {
       home: StreamBuilder<User?>(
         stream: _auth.authStateChanges(),
         builder: (context, snapshot) {
-          return snapshot.data == null ? const SignIn() : const MyAppHome();
+          return snapshot.data == null
+              ? const SignIn()
+              : const MainNavigation();
         },
       ),
     );
@@ -39,8 +38,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MyAppHome(),
+    return const Scaffold(
+      body: MainNavigation(),
     );
   }
 }

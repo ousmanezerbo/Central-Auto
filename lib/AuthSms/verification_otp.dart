@@ -1,11 +1,8 @@
 import 'dart:async';
 
 import 'package:central_auto/AuthSms/function.dart';
-import 'package:central_auto/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/phone_number.dart';
 import 'package:pinput/pinput.dart';
 
 class verificationOtp extends StatefulWidget {
@@ -34,7 +31,7 @@ class _verificationOtpState extends State<verificationOtp> {
 
   late Timer timer;
   void decompte() {
-    timer = Timer.periodic(Duration(seconds: 1), (t) {
+    timer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (count < 1) {
         timer.cancel();
         count = 50;
@@ -131,7 +128,7 @@ class _verificationOtpState extends State<verificationOtp> {
                     children: [
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(vertical: 15)),
+                            padding: const EdgeInsets.symmetric(vertical: 15)),
                         onPressed: smsCode.length < 6 || loading
                             ? null
                             : onVerifySmsCode,

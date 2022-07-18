@@ -42,10 +42,15 @@ dependencies:
   intl_phone_field: ^3.1.0
   pinput: ^2.2.11
 
+flutter_native_splash: 
+  #color: "#42a5f5"
+  background_image: "assets/images/splashScreen.png"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.9.3
+  flutter_native_splash: ^2.2.5
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -96,4 +101,4 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/e1.jpg"
+  image_path: "assets/images/logo.png"
