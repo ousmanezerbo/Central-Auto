@@ -27,7 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 0),
+          padding: const EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -38,7 +38,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     'S\'inscrire',
                     style: heading2.copyWith(color: textBlack),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Image.asset(
@@ -48,7 +48,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Form(
@@ -65,13 +65,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           hintText: 'Nom',
                           prefixIcon: const Icon(Icons.person),
                           hintStyle: heading6.copyWith(color: textGrey),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -85,13 +85,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           hintText: 'Prénom',
                           prefixIcon: const Icon(Icons.person),
                           hintStyle: heading6.copyWith(color: textGrey),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -107,13 +107,13 @@ class _RegisterPageState extends State<RegisterPage> {
                           prefixIcon: const Icon(Icons.mail),
                           hintText: 'Email',
                           hintStyle: heading6.copyWith(color: textGrey),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -142,13 +142,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                 : Icons.visibility_off_outlined),
                             onPressed: togglePassword,
                           ),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -182,7 +182,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               });
                             },
                           ),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
                         ),
@@ -191,14 +191,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [],
+                children: const [],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               CustomPrimaryButton(
@@ -206,10 +206,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 textValue: 'Inscription',
                 textColor: Colors.white,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Row(
+              /*  Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -228,7 +228,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ],
-              ),
+              ), */
             ],
           ),
         ),

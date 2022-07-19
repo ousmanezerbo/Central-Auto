@@ -10,21 +10,23 @@ class AppPage extends StatefulWidget {
 }
 
 class _AppPageState extends State<AppPage> {
-  final nameController = TextEditingController();
-  final yearController = TextEditingController();
-  final posterController = TextEditingController();
-  List<String> categories = [];
+  final MarqueController = TextEditingController();
+  final ModelController = TextEditingController();
+  final AnneeController = TextEditingController();
+  final PrixController = TextEditingController();
+  final ImageController = TextEditingController();
+  List<String> Categories = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Add Movie'),
+        title: const Center(
+          child: Text('Add Car'),
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             ListTile(
@@ -34,13 +36,13 @@ class _AppPageState extends State<AppPage> {
               ),
               title: Row(
                 children: [
-                  Text('Nom : '),
+                  const Text('Marque : '),
                   Expanded(
                     child: TextField(
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      controller: nameController,
+                      controller: MarqueController,
                     ),
                   )
                 ],
@@ -56,13 +58,13 @@ class _AppPageState extends State<AppPage> {
               ),
               title: Row(
                 children: [
-                  Text('Année : '),
+                  const Text('Model : '),
                   Expanded(
                     child: TextField(
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      controller: yearController,
+                      controller: ModelController,
                     ),
                   )
                 ],
@@ -78,13 +80,57 @@ class _AppPageState extends State<AppPage> {
               ),
               title: Row(
                 children: [
-                  Text('Poster : '),
+                  const Text('Annee : '),
                   Expanded(
                     child: TextField(
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                       ),
-                      controller: posterController,
+                      controller: AnneeController,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+                side: const BorderSide(color: Colors.black),
+              ),
+              title: Row(
+                children: [
+                  const Text('Prix : '),
+                  Expanded(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                      ),
+                      controller: PrixController,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5),
+                side: const BorderSide(color: Colors.black),
+              ),
+              title: Row(
+                children: [
+                  const Text('Image : '),
+                  Expanded(
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                      ),
+                      controller: ImageController,
                     ),
                   )
                 ],
@@ -96,11 +142,11 @@ class _AppPageState extends State<AppPage> {
             DropDownMultiSelect(
               onChanged: (List<String> x) {
                 setState(() {
-                  categories = x;
+                  Categories = x;
                 });
               },
-              options: const ['Action', 'S-F', 'Aventure', 'Comédie'],
-              selectedValues: categories,
+              options: const ['SUV', 'Berline', 'Coupé', 'Utilitaire'],
+              selectedValues: Categories,
               whenEmpty: 'Categories',
             ),
             const SizedBox(
@@ -111,11 +157,13 @@ class _AppPageState extends State<AppPage> {
                   minimumSize: const Size.fromHeight(50),
                 ),
                 onPressed: () {
-                  FirebaseFirestore.instance.collection('Movies').add({
-                    'name': nameController.value.text,
-                    'year': yearController.value.text,
-                    'poster': posterController.value.text,
-                    'categories': categories,
+                  FirebaseFirestore.instance.collection('Cars').add({
+                    'Marque': MarqueController.value.text,
+                    'Model': ModelController.value.text,
+                    'Annee': AnneeController.value.text,
+                    'Prix': PrixController.value.text,
+                    'Image': ImageController.value.text,
+                    'Categories': Categories,
                     'likes': 0,
                   });
                 },

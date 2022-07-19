@@ -14,11 +14,121 @@ class carPage extends StatefulWidget {
 class _carPageState extends State<carPage> {
   @override
   Widget build(BuildContext context) {
-    return const MyAppBarFilm();
+    return const MyAppBarCar();
   }
 }
 
-class MyAppBarFilm extends StatefulWidget {
+class MyAppBarCar extends StatefulWidget {
+  const MyAppBarCar({Key? key}) : super(key: key);
+
+  @override
+  State<MyAppBarCar> createState() => _MyAppBarCarState();
+}
+
+class _MyAppBarCarState extends State<MyAppBarCar> {
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AppBarCar(),
+    );
+  }
+}
+
+class AppBarCar extends StatelessWidget {
+  const AppBarCar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Center(
+          child: Text('Central Auto'),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) {
+                return const AppPage();
+              },
+              fullscreenDialog: true,
+            ));
+          },
+        ),
+        actions: [
+          IconButton(
+              onPressed: () => Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => const SearchPage())),
+              icon: const Icon(Icons.search))
+        ],
+      ),
+      body: CarInformation(),
+      //appBar: const MyAppBar(),
+    );
+  }
+}
+
+class CarInformation extends StatefulWidget {
+  @override
+  _CarInformationState createState() => _CarInformationState();
+}
+
+class _CarInformationState extends State<CarInformation> {
+  final Stream<QuerySnapshot> _carStream =
+      FirebaseFirestore.instance.collection('Cars').snapshots();
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _carStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.all(20),
+            child: const CircularProgressIndicator(
+              backgroundColor: Colors.grey,
+              color: Colors.blue,
+              strokeWidth: 5,
+            ),
+          );
+        }
+
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(),
+                  SizedBox(
+                    width: 250,
+                    /* height: 200, */
+                    child: Image.network(
+                      data['Image'],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        );
+      },
+    );
+  }
+}
+
+
+/* class MyAppBarFilm extends StatefulWidget {
   const MyAppBarFilm({Key? key}) : super(key: key);
 
   @override
@@ -117,3 +227,4 @@ class _MoviesInformationState extends State<MoviesInformation> {
     );
   }
 }
+ */

@@ -2,26 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'add_movie_page.dart';
 
-/* class MyAppBarFilm extends StatefulWidget {
-  const MyAppBarFilm({Key? key}) : super(key: key);
+class MyAppBarCar extends StatefulWidget {
+  const MyAppBarCar({Key? key}) : super(key: key);
 
   @override
-  State<MyAppBarFilm> createState() => _MyAppBarFilmState();
+  State<MyAppBarCar> createState() => _MyAppBarCarState();
 }
 
-class _MyAppBarFilmState extends State<MyAppBarFilm> {
+class _MyAppBarCarState extends State<MyAppBarCar> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: const AppBarfilm(),
+      home: const AppBarCar(),
     );
   }
-} */
+}
 
-class AppBarfilm extends StatelessWidget {
-  const AppBarfilm({Key? key}) : super(key: key);
+class AppBarCar extends StatelessWidget {
+  const AppBarCar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,24 +42,24 @@ class AppBarfilm extends StatelessWidget {
           },
         ),
       ),
-      body: MoviesInformation(),
+      body: CarInformation(),
     );
   }
 }
 
-class MoviesInformation extends StatefulWidget {
+class CarInformation extends StatefulWidget {
   @override
-  _MoviesInformationState createState() => _MoviesInformationState();
+  _CarInformationState createState() => _CarInformationState();
 }
 
-class _MoviesInformationState extends State<MoviesInformation> {
-  final Stream<QuerySnapshot> _movieStream =
-      FirebaseFirestore.instance.collection('Movies').snapshots();
+class _CarInformationState extends State<CarInformation> {
+  final Stream<QuerySnapshot> _carStream =
+      FirebaseFirestore.instance.collection('Cars').snapshots();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _movieStream,
+      stream: _carStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
@@ -82,7 +82,7 @@ class _MoviesInformationState extends State<MoviesInformation> {
                     width: 200,
                     /* height: 200, */
                     child: Image.network(
-                      data['poster'],
+                      data['Image'],
                     ),
                   ),
                 ],

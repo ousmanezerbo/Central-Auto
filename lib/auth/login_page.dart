@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-/* import 'package:central_auto/register_page.dart';
-import 'package:central_auto/widgets/custom_checkbox.dart';
-import 'package:studi_kasus/widgets/primary_button.dart'; */
 import 'register_page.dart';
 import 'widgets/custom_checkbox.dart';
 import 'widgets/primary_button.dart';
@@ -27,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 0),
+          padding: const EdgeInsets.fromLTRB(24.0, 40.0, 24.0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -38,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Se connecter',
                     style: heading2.copyWith(color: textBlack),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Image.asset(
@@ -48,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 48,
               ),
               Form(
@@ -64,13 +61,13 @@ class _LoginPageState extends State<LoginPage> {
                           prefixIcon: const Icon(Icons.mail),
                           hintText: 'Email',
                           hintStyle: heading6.copyWith(color: textGrey),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 32,
                     ),
                     Container(
@@ -92,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                                 : Icons.visibility_off_outlined),
                             onPressed: togglePassword,
                           ),
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                             borderSide: BorderSide.none,
                           ),
                         ),
@@ -101,20 +98,20 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CustomCheckbox(),
-                  SizedBox(
+                  const SizedBox(
                     width: 12,
                   ),
                   Text('Se souvenir de moi', style: regular16pt),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 32,
               ),
               CustomPrimaryButton(
@@ -122,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                 textValue: 'Connexion',
                 textColor: Colors.white,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               Center(
@@ -131,15 +128,15 @@ class _LoginPageState extends State<LoginPage> {
                   style: heading6.copyWith(color: textGrey),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               CustomPrimaryButton(
-                buttonColor: Color(0xfffbfbfb),
+                buttonColor: const Color(0xfffbfbfb),
                 textValue: 'Connexion avec Google',
                 textColor: textBlack,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Row(

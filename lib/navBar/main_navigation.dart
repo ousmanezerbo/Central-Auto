@@ -2,7 +2,7 @@ import 'package:central_auto/home.dart';
 import 'package:central_auto/navBar/car_page.dart';
 import 'package:flutter/material.dart';
 
-import 'favorite_page.dart';
+import '../auth/register_page.dart';
 import 'setting_page.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -17,7 +17,7 @@ class _MainNavigationState extends State<MainNavigation> {
   final pages = [
     const MyAppHome(),
     const carPage(),
-    const FavoritePage(),
+    RegisterPage(),
     const SettingPage(),
   ];
 
