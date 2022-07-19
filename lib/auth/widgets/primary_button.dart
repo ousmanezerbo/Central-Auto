@@ -7,7 +7,7 @@ class CustomPrimaryButton extends StatelessWidget {
   final String textValue;
   final Color textColor;
 
-  CustomPrimaryButton(
+  const CustomPrimaryButton(
       {required this.buttonColor,
       required this.textValue,
       required this.textColor});

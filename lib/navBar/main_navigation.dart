@@ -17,7 +17,7 @@ class _MainNavigationState extends State<MainNavigation> {
   final pages = [
     const MyAppHome(),
     const carPage(),
-    RegisterPage(),
+    const RegisterPage(),
     const SettingPage(),
   ];
 

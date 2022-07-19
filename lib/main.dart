@@ -1,8 +1,9 @@
-import 'package:central_auto/AuthSms/sing_in.dart';
 import 'package:central_auto/navBar/main_navigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'auth/register_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         stream: _auth.authStateChanges(),
         builder: (context, snapshot) {
           return snapshot.data == null
-              ? const SignIn()
+              //? const SignIn()
+              ? const RegisterPage()
               : const MainNavigation();
         },
       ),

@@ -1,6 +1,7 @@
+import 'package:central_auto/auth/tests.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'register_page.dart';
-import 'widgets/custom_checkbox.dart';
 import 'widgets/primary_button.dart';
 import 'theme.dart';
 
@@ -10,6 +11,30 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool loadingg = false;
+  AuthServices auth = AuthServices();
+  late String email, pass;
+  final keys = GlobalKey<FormState>();
+  void connexion() async {
+    if (keys.currentState!.validate()) {
+      print("$email $pass");
+      bool login = await auth.signin(email, pass);
+
+      if (login) Navigator.of(context).maybePop();
+
+      print('Vérification effectuée mail');
+    }
+
+    /* if (keys.currentState!.validate()) {
+      print("$email $pass");
+      bool login = await auth.signin(email, pass);
+
+      if (login) Navigator.of(context).maybePop();
+
+      print('Vérification effectuée mail');
+    } */
+  }
+
   bool passwordVisible = false;
   void togglePassword() {
     setState(() {
@@ -49,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 48,
               ),
               Form(
+                key: keys,
                 child: Column(
                   children: [
                     Container(
@@ -57,6 +83,11 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(14.0),
                       ),
                       child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) => EmailValidator.validate(value!)
+                            ? null
+                            : "Entrez un email",
+                        onChanged: (e) => email = e,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.mail),
                           hintText: 'Email',
@@ -76,6 +107,16 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(14.0),
                       ),
                       child: TextFormField(
+                        validator: (value) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              value.length < 6) {
+                            return 'Mot de passe incorrect';
+                          }
+                          return null;
+                        },
+                        onChanged: (e) => pass = e,
+                        maxLines: 1,
                         obscureText: !passwordVisible,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock),
@@ -101,23 +142,40 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 32,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CustomCheckbox(),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  Text('Se souvenir de moi', style: regular16pt),
-                ],
-              ),
               const SizedBox(
                 height: 32,
               ),
-              CustomPrimaryButton(
-                buttonColor: primaryBlue,
-                textValue: 'Connexion',
-                textColor: Colors.white,
+              Column(
+                children: [
+                  Material(
+                    borderRadius: BorderRadius.circular(14.0),
+                    elevation: 0,
+                    child: Container(
+                      height: 56,
+                      decoration: BoxDecoration(
+                        color: primaryBlue,
+                        borderRadius: BorderRadius.circular(14.0),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () async {
+                            connexion();
+                          },
+                          borderRadius: BorderRadius.circular(14.0),
+                          child: Center(
+                            child: Text(
+                              'Connexion',
+                              style: heading5.copyWith(
+                                  color:
+                                      const Color.fromARGB(255, 255, 255, 255)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 24,
@@ -129,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 24,
+                height: 20,
               ),
               CustomPrimaryButton(
                 buttonColor: const Color(0xfffbfbfb),
@@ -151,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegisterPage()));
+                              builder: (context) => const RegisterPage()));
                     },
                     child: Text(
                       'S\'enregistrer',

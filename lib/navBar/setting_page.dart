@@ -30,6 +30,9 @@ class _SettingPageState extends State<SettingPage> {
               style: TextStyle(fontSize: 17),
               textAlign: TextAlign.center,
             ),
+            /* if (user != null) ...[
+              Text("uid: " + user.uid),
+            ], */
             const SizedBox(
               height: 20,
             )
