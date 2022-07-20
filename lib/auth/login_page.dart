@@ -1,4 +1,4 @@
-import 'package:central_auto/auth/tests.dart';
+import 'package:central_auto/auth/services/tests.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'register_page.dart';
@@ -24,15 +24,6 @@ class _LoginPageState extends State<LoginPage> {
 
       print('Vérification effectuée mail');
     }
-
-    /* if (keys.currentState!.validate()) {
-      print("$email $pass");
-      bool login = await auth.signin(email, pass);
-
-      if (login) Navigator.of(context).maybePop();
-
-      print('Vérification effectuée mail');
-    } */
   }
 
   bool passwordVisible = false;

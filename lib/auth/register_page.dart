@@ -1,13 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:central_auto/auth/tests.dart';
+import 'package:central_auto/auth/services/tests.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 /* import 'package:studi_kasus/widgets/custom_checkbox.dart';
 import 'package:studi_kasus/widgets/primary_button.dart'; */
 import 'login_page.dart';
 import 'theme.dart';
-import 'tests.dart';
+
 import 'dart:async';
 
 class RegisterPage extends StatefulWidget {
@@ -18,12 +18,13 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  void retour() async {
+  void inscription() async {
     if (keys.currentState!.validate()) {
       print("$email $pass");
 
-      bool register = await auth.signup(email, pass);
+      bool register = await auth.signup(email, pass, nom, prenom);
 
+      // ignore: use_build_context_synchronously
       if (register) Navigator.of(context).maybePop();
 
       print('Vérification effectuée mail');
@@ -33,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   AuthServices auth = AuthServices();
   bool passwordVisible = false;
   bool passwordConfrimationVisible = false;
-  late String email, pass;
+  late String email, pass, cpass, nom, prenom;
   final keys = GlobalKey<FormState>();
   void togglePassword() {
     setState(() {
@@ -80,43 +81,59 @@ class _RegisterPageState extends State<RegisterPage> {
                   key: keys,
                   child: Column(
                     children: [
-                      /* Container(
-                      decoration: BoxDecoration(
-                        color: textWhiteGrey,
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      child: TextFormField(
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          hintText: 'Nom',
-                          prefixIcon: const Icon(Icons.person),
-                          hintStyle: heading6.copyWith(color: textGrey),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
+                      Container(
+                        decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: TextFormField(
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Entrez votre prénom';
+                            }
+                            return null;
+                          },
+                          onChanged: (e) => prenom = e,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            hintText: 'Prénom',
+                            prefixIcon: const Icon(Icons.person),
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: textWhiteGrey,
-                        borderRadius: BorderRadius.circular(14.0),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      child: TextFormField(
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          hintText: 'Prénom',
-                          prefixIcon: const Icon(Icons.person),
-                          hintStyle: heading6.copyWith(color: textGrey),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
+                      Container(
+                        decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: TextFormField(
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Entrez votre nom';
+                            }
+                            return null;
+                          },
+                          onChanged: (e) => nom = e,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            hintText: 'Nom',
+                            prefixIcon: const Icon(Icons.person),
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
                           ),
                         ),
                       ),
-                    ), */
                       const SizedBox(
                         height: 20,
                       ),
@@ -151,11 +168,16 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         child: TextFormField(
                           validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value.length < 6) {
-                              return 'Mot de passe incorrect';
+                            if (value == null) {
+                              return 'Veuillez saisir un mot de passe';
                             }
+                            if (value.isEmpty) {
+                              return 'Veuillez saisir un mot de passe';
+                            }
+                            if (value.length < 6) {
+                              return 'Mot de passe minimum : 6 \ncaractères';
+                            }
+
                             return null;
                           },
                           onChanged: (e) => pass = e,
@@ -182,43 +204,58 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      /* Container(
-                      decoration: BoxDecoration(
-                        color: textWhiteGrey,
-                        borderRadius: BorderRadius.circular(14.0),
-                      ),
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Mot de passe incorrect';
-                          }
-                          return null;
-                        },
-                        maxLines: 1,
-                        obscureText: !passwordConfrimationVisible,
-                        decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.lock),
-                          hintText: 'Confirmer le mot de passe',
-                          hintStyle: heading6.copyWith(color: textGrey),
-                          suffixIcon: IconButton(
-                            color: textGrey,
-                            splashRadius: 1,
-                            icon: Icon(passwordConfrimationVisible
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined),
-                            onPressed: () {
-                              setState(() {
-                                passwordConfrimationVisible =
-                                    !passwordConfrimationVisible;
-                              });
-                            },
-                          ),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
+                      Container(
+                        decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value ==
+                                    null /* ||
+                                value.isEmpty ||
+                                value.length < 6 ||
+                                value != pass */
+                                ) {
+                              return 'Veuillez saisir un mot de passe';
+                            }
+                            if (value.isEmpty) {
+                              return 'Veuillez saisir un mot de passe';
+                            }
+                            if (value.length < 6) {
+                              return 'Mot de passe minimum : 6 \ncaractères';
+                            }
+                            if (value != pass) {
+                              return 'Entrez le même mot de passe';
+                            }
+                            return null;
+                          },
+                          onChanged: (e) => cpass = e,
+                          maxLines: 1,
+                          obscureText: !passwordConfrimationVisible,
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.lock),
+                            hintText: 'Confirmer le mot de passe',
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            suffixIcon: IconButton(
+                              color: textGrey,
+                              splashRadius: 1,
+                              icon: Icon(passwordConfrimationVisible
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined),
+                              onPressed: () {
+                                setState(() {
+                                  passwordConfrimationVisible =
+                                      !passwordConfrimationVisible;
+                                });
+                              },
+                            ),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
                           ),
                         ),
                       ),
-                    ), */
                       /*        RaisedButton(
                       color: primaryBlue,
                       padding: const EdgeInsets.all(10),
@@ -259,7 +296,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: Colors.transparent,
                           child: InkWell(
                             onTap: () async {
-                              retour();
+                              inscription();
                             },
                             borderRadius: BorderRadius.circular(14.0),
                             child: Center(
