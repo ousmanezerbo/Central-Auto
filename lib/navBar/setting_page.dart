@@ -1,9 +1,5 @@
-import 'package:central_auto/auth/model/utilisateur.dart';
-import 'package:central_auto/auth/services/tests.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
-import '../auth/services/db.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -13,62 +9,52 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  UserM? userm;
-  AuthServices auth = AuthServices();
-  // final FirebaseAuth auth = FirebaseAuth.instance;
-
-  Future<void> getUser() async {
-    /*  final User userm = auth.currentUser;
-    final uid = userm.uid; */
-    User? user = await auth.user;
-    final userResult = await DBServices().getUser(user!.uid);
-    setState(() {
-      userm = userResult;
-      UserM.currentUser = userResult;
-    });
+  @override
+  Widget build(BuildContext context) {
+    return UserInformation();
   }
+}
+
+class UserInformation extends StatefulWidget {
+  @override
+  _UserInformationState createState() => _UserInformationState();
+}
+
+class _UserInformationState extends State<UserInformation> {
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('Utilisateurs').snapshots();
 
   @override
   Widget build(BuildContext context) {
-    final user = UserM.currentUser;
-    return ListView(
-      children: [
-        UserAccountsDrawerHeader(
-          accountEmail: Text(user!.email),
-          accountName: Text(user.nom),
-        ),
-      ],
-    );
+    return StreamBuilder<QuerySnapshot>(
+      stream: _usersStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong');
+        }
 
-    /* Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                await deconnection();
-              },
-              style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-              child: const Icon(Icons.logout),
-            ),
-            const Text(
-              "Se déconnecter",
-              style: TextStyle(fontSize: 17),
-              textAlign: TextAlign.center,
-            ),
-            // ignore: unnecessary_null_comparison
-            if (userm != null) ...[
-              Text("id: ${userm?.id}"),
-            ],
-            const SizedBox(
-              height: 20,
-            ),
-            Text('email: ${userm?.email}')
-          ],
-        ),
-      ),
-    ); */
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Text("Loading");
+        }
+
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            return Column(
+              children: [
+                Text(data['nom']),
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 50, 10, 20),
+                  padding: EdgeInsets.all(20),
+                  height: 250,
+                  color: Colors.amber,
+                )
+              ],
+            );
+          }).toList(),
+        );
+      },
+    );
   }
 }

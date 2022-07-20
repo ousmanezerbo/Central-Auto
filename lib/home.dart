@@ -1,4 +1,7 @@
+import 'package:central_auto/navBar/setting_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'AuthSms/function.dart';
 import 'film/film.dart';
 
 class MyAppHome extends StatelessWidget {
@@ -94,7 +97,8 @@ class _MyAppBarState extends State<MyAppBar> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) {
-              return const MyAppBarCar();
+              return SettingPage();
+              //const MyAppBarCar()
             },
             fullscreenDialog: true,
           ));
@@ -203,6 +207,20 @@ class _SearchectionState extends State<Searchection> {
                   child: const Icon(Icons.search),
                 ),
               ),
+              Container(
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await deconnection();
+                  },
+                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
+                  child: const Icon(Icons.logout),
+                ),
+                /* const Text(
+              "Se déconnecter",
+              style: TextStyle(fontSize: 17),
+              textAlign: TextAlign.center,
+            ), */
+              )
             ],
           ),
         ],
@@ -267,10 +285,56 @@ class CarCard extends StatefulWidget {
 }
 
 class _CarCardState extends State<CarCard> {
+  final Stream<QuerySnapshot> _carStream =
+      FirebaseFirestore.instance.collection('Cars').snapshots();
   get carData => Map;
 
   @override
   Widget build(BuildContext context) {
+    /* return StreamBuilder<QuerySnapshot>(
+      stream: _carStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.all(20),
+            child: const CircularProgressIndicator(
+              backgroundColor: Colors.grey,
+              color: Colors.blue,
+              strokeWidth: 5,
+            ),
+          );
+        }
+
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            return Padding(
+              padding: const EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Center(),
+                  SizedBox(
+                    width: 250,
+                    /* height: 200, */
+                    child: Image.network(
+                      data['Image'],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        );
+      },
+    ); */
+
     return Container(
       height: 300,
       //width: double.infinity,
@@ -299,48 +363,3 @@ class _CarCardState extends State<CarCard> {
     );
   }
 }
-/* decoration: BoxDecoration(
-               image: DecorationImage(
-                 image: AssetImage(
-                   carData['picture'],
-                 ),
-               ),
-             ), */
-
-/* class CarInformation extends StatefulWidget {
-  const CarInformation({Key? key}) : super(key: key);
-
-  @override
-  State<CarInformation> createState() => _CarInformationState();
-}
-
-class _CarInformationState extends State<CarInformation> {
-  final Stream<QuerySnapshot> _carStream =
-      FirebaseFirestore.instance.collection('Voiture').snapshots();
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _carStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("Loading");
-        }
-
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            return ListTile(
-              title: Text(data['model']),
-              subtitle: Text(data['marque']),
-            );
-          }).toList(),
-        );
-      },
-    );
-  }
-} */

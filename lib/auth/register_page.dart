@@ -24,7 +24,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
       bool register = await auth.signup(email, pass, nom, prenom);
 
-      // ignore: use_build_context_synchronously
       if (register) Navigator.of(context).maybePop();
 
       print('Vérification effectuée mail');

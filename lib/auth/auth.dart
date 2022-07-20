@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'login_page.dart';
 
 class MyAppAuth extends StatelessWidget {
+  const MyAppAuth({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

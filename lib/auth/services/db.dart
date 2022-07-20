@@ -5,7 +5,7 @@ import '../model/utilisateur.dart';
 
 class DBServices {
   final CollectionReference usercol =
-      FirebaseFirestore.instance.collection("Utilisteurs");
+      FirebaseFirestore.instance.collection("Utilisateurs");
 
   Future saveUser(UserM user) async {
     try {

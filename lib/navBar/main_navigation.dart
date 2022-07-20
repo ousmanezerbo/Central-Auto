@@ -1,5 +1,6 @@
 import 'package:central_auto/home.dart';
 import 'package:central_auto/navBar/car_page.dart';
+import 'package:central_auto/settingUser/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 import '../auth/register_page.dart';
@@ -18,7 +19,8 @@ class _MainNavigationState extends State<MainNavigation> {
     const MyAppHome(),
     const carPage(),
     const RegisterPage(),
-    const SettingPage(),
+    //const SettingPage(),
+    ProfilePage(),
   ];
 
   @override
