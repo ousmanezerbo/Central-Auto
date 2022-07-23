@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SettingPage extends StatefulWidget {
@@ -21,12 +22,43 @@ class UserInformation extends StatefulWidget {
 }
 
 class _UserInformationState extends State<UserInformation> {
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('Utilisateurs').snapshots();
-
+  final Stream<QuerySnapshot> _carStream =
+      FirebaseFirestore.instance.collection('Cars').snapshots();
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return Container(
+      child: StreamBuilder<QuerySnapshot>(
+          stream: _carStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return const Text('Something went wrong');
+            }
+
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.all(20),
+                child: const CircularProgressIndicator(
+                  backgroundColor: Colors.white,
+                  color: Colors.blue,
+                  strokeWidth: 5,
+                ),
+              );
+            }
+            return Column(
+              children: [
+                SingleChildScrollView(
+                  child: Container(
+                    child: Text('data'),
+                  ),
+                )
+              ],
+            );
+          }),
+    );
+
+/*     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
@@ -43,7 +75,7 @@ class _UserInformationState extends State<UserInformation> {
                 document.data()! as Map<String, dynamic>;
             return Column(
               children: [
-                Text(data['nom']),
+                Text(data['prenom']),
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 50, 10, 20),
                   padding: EdgeInsets.all(20),
@@ -55,6 +87,6 @@ class _UserInformationState extends State<UserInformation> {
           }).toList(),
         );
       },
-    );
+    ); */
   }
 }

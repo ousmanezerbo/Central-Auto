@@ -2,6 +2,7 @@ import 'package:central_auto/home.dart';
 import 'package:central_auto/navBar/car_page.dart';
 import 'package:central_auto/settingUser/pages/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../auth/register_page.dart';
 import 'setting_page.dart';
@@ -40,7 +41,7 @@ class _MainNavigationState extends State<MainNavigation> {
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Acceuil"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.car_rental), label: "Voitures"),
+                icon: Icon(FontAwesomeIcons.car), label: "Voitures"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.favorite), label: "Favoris"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile")

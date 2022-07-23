@@ -22,13 +22,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Central Auto',
       //theme: ThemeData.dark(),
+
       home: StreamBuilder<User?>(
         stream: _auth.authStateChanges(),
         builder: (context, snapshot) {
           return snapshot.data == null
               //? const SignIn()
               ? const RegisterPage()
-              : const MainNavigation();
+              : const MyHomePage();
         },
       ),
     );

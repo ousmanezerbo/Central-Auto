@@ -108,7 +108,7 @@ class _CarInformationState extends State<CarInformation> {
             return Container(
               height: 300,
               width: double.infinity,
-              margin: const EdgeInsets.fromLTRB(50, 30, 50, 10),
+              margin: const EdgeInsets.fromLTRB(30, 30, 30, 10),
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 200, 209, 218),
                   borderRadius: const BorderRadius.all(

@@ -7,6 +7,9 @@ class DBServices {
   final CollectionReference usercol =
       FirebaseFirestore.instance.collection("Utilisateurs");
 
+  final CollectionReference voitureCol =
+      FirebaseFirestore.instance.collection("Voitures");
+
   Future saveUser(UserM user) async {
     try {
       await usercol.doc(user.id).set(user.toMap());

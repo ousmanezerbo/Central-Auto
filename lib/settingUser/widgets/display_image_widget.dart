@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DisplayImage extends StatelessWidget {
   final String imagePath;
@@ -15,7 +16,7 @@ class DisplayImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Color.fromRGBO(64, 105, 225, 1);
+    final color = Colors.blue;
 
     return Center(
         child: Stack(children: [
@@ -30,7 +31,7 @@ class DisplayImage extends StatelessWidget {
 
   // Builds Profile Image
   Widget buildImage(Color color) {
-    final image = imagePath.contains('https://')
+    var image = imagePath.contains('https://')
         ? NetworkImage(imagePath)
         : FileImage(File(imagePath));
 
@@ -48,7 +49,7 @@ class DisplayImage extends StatelessWidget {
   Widget buildEditIcon(Color color) => buildCircle(
       all: 8,
       child: Icon(
-        Icons.edit,
+        FontAwesomeIcons.userPen,
         color: color,
         size: 20,
       ));

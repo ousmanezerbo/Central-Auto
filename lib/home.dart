@@ -1,8 +1,12 @@
+import 'package:central_auto/carClick.dart';
 import 'package:central_auto/navBar/setting_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'AuthSms/function.dart';
 import 'film/film.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 
 class MyAppHome extends StatelessWidget {
   const MyAppHome({Key? key}) : super(key: key);
@@ -31,41 +35,9 @@ class _HomePageState extends State<HomePage> {
         appBar: const MyAppBar(),
         body: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               Searchection(),
-              CarsSection(),
-              /* ElevatedButton(
-                onPressed: () async {
-                  await deconnection();
-                },
-                style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-                child: const Icon(Icons.logout),
-              ) */
-
-/*                CustomScrollView(
-                 slivers: [
-                   SliverList(
-                     delegate: SliverChildBuilderDelegate(
-                       (BuildContext context, int index) {
-                         return Card(
-                           margin: const EdgeInsets.all(15),
-                           child: Container(
-                             color: Colors.blue[100 * (index % 9 + 1)],
-                             height: 80,
-                             alignment: Alignment.center,
-                             child: Text(
-                               "Item $index",
-                               style: const TextStyle(fontSize: 30),
-                             ),
-                           ),
-                         );
-                       },
-                       childCount: 1000, // 1000 list items
-                     ),
-                   ),
-                 ],
-               )
- */
+              carousel(),
             ],
           ),
         ));
@@ -97,7 +69,7 @@ class _MyAppBarState extends State<MyAppBar> {
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) {
-              return SettingPage();
+              return caClick();
               //const MyAppBarCar()
             },
             fullscreenDialog: true,
@@ -114,9 +86,15 @@ class _MyAppBarState extends State<MyAppBar> {
   }
 }
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
 
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  TextEditingController _searchContoller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,9 +132,15 @@ class Searchection extends StatefulWidget {
 }
 
 class _SearchectionState extends State<Searchection> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  User? user = FirebaseAuth.instance.currentUser;
+
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('Cars');
   @override
   Widget build(BuildContext context) {
     return Container(
+        /* 
       height: 100,
       color: Colors.grey[200],
       padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
@@ -207,158 +191,131 @@ class _SearchectionState extends State<Searchection> {
                   child: const Icon(Icons.search),
                 ),
               ),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await deconnection();
-                  },
-                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-                  child: const Icon(Icons.logout),
-                ),
-                /* const Text(
-              "Se déconnecter",
-              style: TextStyle(fontSize: 17),
-              textAlign: TextAlign.center,
-            ), */
-              )
             ],
           ),
         ],
-      ),
-    );
+      ), */
+        );
   }
 }
 
-class CarsSection extends StatefulWidget {
-  const CarsSection({Key? key}) : super(key: key);
+// ignore: camel_case_types
+class carousel extends StatefulWidget {
+  carousel({Key? key}) : super(key: key);
 
   @override
-  State<CarsSection> createState() => _CarsSectionState();
+  State<carousel> createState() => _carouselState();
 }
 
-class _CarsSectionState extends State<CarsSection> {
-  final List carslist = [
-    {
-      "Marque": "Mercedes",
-      "Modele": "Class-E",
-      "picture": "assets/images/e1.jpg",
-    },
-    {
-      "Marque": "Mercedes",
-      "Modele": "Class-G",
-      "picture": "assets/images/g1.jpg",
-    },
-    {
-      "Marque": "Mercedes",
-      "Modele": "Class-GLE",
-      "picture": "assets/images/gle1.jpg",
-    },
-    {
-      "Marque": "Mercedes",
-      "Modele": "Class-S",
-      //"picture": "assets/images/s1.jpg",
-    },
+// ignore: camel_case_types
+class _carouselState extends State<carousel> {
+  List<CarouselItem> itemList = [
+    CarouselItem(
+      image: const NetworkImage(
+        'https://firebasestorage.googleapis.com/v0/b/centralauto-39f3e.appspot.com/o/images%2FIMG_3617.jpg?alt=media&token=04d2606b-7a6c-40a1-9949-e6e63884ea1d',
+      ),
+      boxDecoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: FractionalOffset.bottomCenter,
+          end: FractionalOffset.topCenter,
+          colors: [
+            Colors.blueAccent.withOpacity(1),
+            Colors.black.withOpacity(.3),
+          ],
+          stops: const [0.0, 1.0],
+        ),
+      ),
+      title: ' Toyota Corola',
+      titleTextStyle: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+      ),
+      leftSubtitle: '2016',
+      rightSubtitle: '6000000 Fcfa',
+      rightSubtitleTextStyle: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+      ),
+      onImageTap: (i) {},
+    ),
+    CarouselItem(
+      image: const NetworkImage(
+        'https://firebasestorage.googleapis.com/v0/b/centralauto-39f3e.appspot.com/o/images%2Fe1.jpg?alt=media&token=6802abaf-c0ca-4276-be75-eabf4aee6682',
+      ),
+      boxDecoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: FractionalOffset.bottomCenter,
+          end: FractionalOffset.topCenter,
+          colors: [
+            Colors.blueAccent.withOpacity(1),
+            Colors.black.withOpacity(.3),
+          ],
+          stops: const [0.0, 1.0],
+        ),
+      ),
+      title: 'Toyota Corola',
+      titleTextStyle: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+      ),
+      leftSubtitle: '2020',
+      rightSubtitle: '15000000 Fcfa',
+      rightSubtitleTextStyle: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+      ),
+      onImageTap: (i) {},
+    ),
+    CarouselItem(
+      image: const NetworkImage(
+        'https://firebasestorage.googleapis.com/v0/b/centralauto-39f3e.appspot.com/o/images%2Fg1.jpg?alt=media&token=c09b1441-931b-44b9-a2d1-2ede39473563',
+      ),
+      boxDecoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: FractionalOffset.bottomCenter,
+          end: FractionalOffset.topCenter,
+          colors: [
+            Colors.blueAccent.withOpacity(1),
+            Colors.black.withOpacity(.3),
+          ],
+          stops: const [0.0, 1.0],
+        ),
+      ),
+      title: 'Mercedes Class - G',
+      titleTextStyle: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+      ),
+      leftSubtitle: '2019',
+      rightSubtitle: '600000000 Fcfa',
+      rightSubtitleTextStyle: const TextStyle(
+        fontSize: 12,
+        color: Colors.white,
+      ),
+      onImageTap: (i) {},
+    ),
   ];
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
-      color: Colors.white,
-      child: Column(
-        children: carslist.map((car) {
-          return CarCard(car);
-          // return Container(
-          //   child: Image.asset(car['picture']),
-          // );
-        }).toList(),
-      ),
-    );
-  }
-}
-
-class CarCard extends StatefulWidget {
-  final Map carData;
-  const CarCard(this.carData);
-
-  @override
-  State<CarCard> createState() => _CarCardState();
-}
-
-class _CarCardState extends State<CarCard> {
-  final Stream<QuerySnapshot> _carStream =
-      FirebaseFirestore.instance.collection('Cars').snapshots();
-  get carData => Map;
-
-  @override
-  Widget build(BuildContext context) {
-    /* return StreamBuilder<QuerySnapshot>(
-      stream: _carStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.all(20),
-            child: const CircularProgressIndicator(
-              backgroundColor: Colors.grey,
-              color: Colors.blue,
-              strokeWidth: 5,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            Column(
+              children: [
+                CustomCarouselSlider(
+                  items: itemList,
+                  height: 260,
+                  subHeight: 50,
+                  width: MediaQuery.of(context).size.width * .9,
+                  autoplay: true,
+                ),
+              ],
             ),
-          );
-        }
-
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            return Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Center(),
-                  SizedBox(
-                    width: 250,
-                    /* height: 200, */
-                    child: Image.network(
-                      data['Image'],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
-        );
-      },
-    ); */
-
-    return Container(
-      height: 300,
-      //width: double.infinity,
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(18),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade200,
-              spreadRadius: 4,
-              blurRadius: 6,
-              offset: const Offset(0, 3),
-            )
-          ]),
-      child: Column(
-        children: [
-          Container(
-            height: 250,
-            color: Colors.red,
-          )
-        ],
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
