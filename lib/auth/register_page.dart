@@ -67,7 +67,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return loadingg
         ? Loading()
         : Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             backgroundColor: Colors.white,
             body: /* SafeArea */ WillPopScope(
               onWillPop: () async {

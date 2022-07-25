@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 
 //import 'package:image_picker/image_picker.dart';
 
+import '../../share/getImage.dart';
 import '../user/user_data.dart';
 import '../widgets/appbar_widget.dart';
 
@@ -20,6 +21,7 @@ class EditImagePage extends StatefulWidget {
 }
 
 class _EditImagePageState extends State<EditImagePage> {
+  List<File> image = [];
   var user = UserData.myUser;
 
   @override
@@ -45,18 +47,17 @@ class _EditImagePageState extends State<EditImagePage> {
                   width: 330,
                   child: GestureDetector(
                     onTap: () async {
-                      final image = await ImagePicker()
-                          .pickImage(source: ImageSource.gallery);
+                      final data = await showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return GetImage();
+                          });
 
-                      if (image == null) return;
-
-                      final location = await getApplicationDocumentsDirectory();
-                      final name = basename(image.path);
-                      final imageFile = File('${location.path}/$name');
-                      final newImage =
-                          await File(image.path).copy(imageFile.path);
-                      setState(
-                          () => user = user.copy(imagePath: newImage.path));
+                      if (data != null) {
+                        setState(() {
+                          image.add(data);
+                        });
+                      }
                     },
                     child: Image.network(user.image),
                   ))),

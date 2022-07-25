@@ -16,32 +16,11 @@ class _caClickState extends State<caClick> {
       FirebaseFirestore.instance.collection('Cars').snapshots();
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _carStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
-
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.all(20),
-            child: const CircularProgressIndicator(
-              backgroundColor: Colors.white,
-              color: Colors.blue,
-              strokeWidth: 5,
-            ),
-          );
-        }
-
-        return SingleChildScrollView(
-          child: Container(
-            color: Colors.red[100],
-            height: 400,
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(title: Text('Détails de la voiture')),
+      body: SingleChildScrollView(
+        child: Column(),
+      ),
     );
   }
 }

@@ -27,6 +27,7 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: pages[selectedPage],
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

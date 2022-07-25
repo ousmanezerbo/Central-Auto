@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
     return loadingg
         ? Loading()
         : Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             backgroundColor: Colors.white,
             body: Center(
                 child: SingleChildScrollView(
