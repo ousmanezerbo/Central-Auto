@@ -55,26 +55,73 @@ class _CarDetailsState extends State<CarDetails> {
             label: 'Mail',
             backgroundColor: Colors.white,
             foregroundColor: Colors.blue,
-            onTap: () {},
+            onTap: () async {
+              String email = widget.user!.email.toString();
+              String subject = 'Voiture de Central Auto';
+              String body =
+                  'Bonjour! Je suis intéressé(e) par le poste de voitre voiture sur l\'application Cental Auto et j\'aimerai qu\'on en discute.';
+
+              String? encodeQueryParameters(Map<String, String> params) {
+                return params.entries
+                    .map((MapEntry<String, String> e) =>
+                        '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                    .join('&');
+              }
+
+              final Uri emailUri = Uri(
+                scheme: 'mailto',
+                path: email,
+                query: encodeQueryParameters(<String, String>{
+                  'subject': subject,
+                  'body': body,
+                }),
+              );
+              if (await canLaunchUrl(emailUri)) {
+                launchUrl(emailUri);
+              } else {
+                print('The action is not supported');
+              }
+            },
           ),
           SpeedDialChild(
             child: const Icon(Icons.phone),
             label: 'Téléphone',
             backgroundColor: Colors.white,
             foregroundColor: Colors.blue,
-            onTap: () {},
+            onTap: () async {
+              //if (widget.user != null)
+              final Uri launchUri = Uri(
+                scheme: 'tel',
+                path: widget.user!.numero.toString(),
+              );
+              if (await canLaunchUrl(launchUri)) {
+                await launchUrl(launchUri);
+              } else {
+                print("The action no supported.");
+              }
+            },
           ),
           SpeedDialChild(
             child: const Icon(Icons.message),
             label: 'Message',
             backgroundColor: Colors.white,
             foregroundColor: Colors.blue,
-            onTap: () {},
+            onTap: () async {
+              final Uri launchUri = Uri(
+                scheme: 'sms',
+                path: widget.user!.numero.toString(),
+              );
+              if (await canLaunchUrl(launchUri)) {
+                await launchUrl(launchUri);
+              } else {
+                print("The action no supported.");
+              }
+            },
           ),
         ],
       ),
       appBar: AppBar(
-        title: Text('Détails du véhicule'),
+        title: const Text('Détails du véhicule'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -87,20 +134,9 @@ class _CarDetailsState extends State<CarDetails> {
               onTap: () {},
               child: CarouselSlider.builder(
                 itemCount: widget.car.images!.length,
-                itemBuilder: (BuildContext context, int itemIndex,
-                        int pageViewIndex) =>
-                    /* Container(
-                      child: (Image(
-                        image:
-                            CachedNetworkImageProvider(car.images![itemIndex],),
-                        fit: BoxFit.cover,
-                      ) /* Image.network(
-                        car.images![itemIndex],
-                        //height: 250,
-                      ) */
-                          ),
-                    ), */
-                    InkWell(
+                itemBuilder:
+                    (BuildContext context, int itemIndex, int pageViewIndex) =>
+                        InkWell(
                   onTap: (() {
                     showDialog(
                         builder: (BuildContext context) => AlertDialog(
@@ -186,6 +222,7 @@ class _CarDetailsState extends State<CarDetails> {
                     ),
                   ),
                   Text(
+                    //widget.user!.nom.toString(),
                     widget.car.Marque.toString(),
                     style: GoogleFonts.nunito(
                         fontSize: 15, fontWeight: FontWeight.w800),
@@ -528,63 +565,3 @@ class _CarDetailsState extends State<CarDetails> {
     );
   }
 }
-/*  Container(
-              margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/rendez-vous.png',
-                        width: 30,
-                        height: 30,
-                      ),
-                      Text(
-                        'Année',
-                        style: GoogleFonts.nunito(
-                            fontSize: 10, fontWeight: FontWeight.w800),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 13,
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      widget.car.Annee.toString(),
-                      style: GoogleFonts.nunito(
-                          fontSize: 15, fontWeight: FontWeight.w800),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/clef-de-voiture.png',
-                        width: 30,
-                        height: 30,
-                      ),
-                      Text(
-                        'État',
-                        style: GoogleFonts.nunito(
-                            fontSize: 10, fontWeight: FontWeight.w800),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  Text(
-                    widget.car.Etat.toString(),
-                    style: GoogleFonts.nunito(
-                        fontSize: 15, fontWeight: FontWeight.w800),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ), */
