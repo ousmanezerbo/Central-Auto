@@ -62,6 +62,240 @@ class _RegisterPageState extends State<RegisterPage> {
     });
   }
 
+  int currentStep = 0;
+  List<Step> getSteps() => [
+        Step(
+          state: currentStep > 0 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 0,
+          title: Text('Etape 1'),
+          content: Container(
+            child: Column(
+              children: [
+                Form(
+                  key: keys,
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: TextFormField(
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Entrez votre prénom';
+                            }
+                            return null;
+                          },
+                          onChanged: (e) => prenom = e,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            hintText: 'Prénom',
+                            prefixIcon: const Icon(Icons.person),
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: TextFormField(
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Entrez votre nom';
+                            }
+                            return null;
+                          },
+                          onChanged: (e) => nom = e,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            hintText: 'Nom',
+                            prefixIcon: const Icon(Icons.person),
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: textWhiteGrey,
+                          borderRadius: BorderRadius.circular(14.0),
+                        ),
+                        child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          validator: (value) {
+                            if (value == null ||
+                                value.isEmpty ||
+                                value.length != 8) {
+                              return 'Numéro incorrect';
+                            }
+                            return null;
+                          },
+                          onChanged: (e) => numero = e,
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            hintText: 'Numéro',
+                            prefixIcon: const Icon(Icons.phone_android),
+                            hintStyle: heading6.copyWith(color: textGrey),
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Step(
+          isActive: currentStep > 1,
+          title: Text('Etape 2'),
+          content: Container(
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: textWhiteGrey,
+                    borderRadius: BorderRadius.circular(14.0),
+                  ),
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) => EmailValidator.validate(value!)
+                        ? null
+                        : "Entrez un email",
+                    onChanged: (e) => email = e,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.mail),
+                      hintText: 'Email',
+                      hintStyle: heading6.copyWith(color: textGrey),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: textWhiteGrey,
+                    borderRadius: BorderRadius.circular(14.0),
+                  ),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Veuillez saisir un mot de passe';
+                      }
+                      if (value.isEmpty) {
+                        return 'Veuillez saisir un mot de passe';
+                      }
+                      if (value.length < 6) {
+                        return 'Mot de passe minimum : 6 \ncaractères';
+                      }
+
+                      return null;
+                    },
+                    onChanged: (e) => pass = e,
+                    maxLines: 1,
+                    obscureText: !passwordVisible,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock),
+                      hintText: 'Mot de passe',
+                      hintStyle: heading6.copyWith(color: textGrey),
+                      suffixIcon: IconButton(
+                        color: textGrey,
+                        splashRadius: 1,
+                        icon: Icon(passwordVisible
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined),
+                        onPressed: togglePassword,
+                      ),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: textWhiteGrey,
+                    borderRadius: BorderRadius.circular(14.0),
+                  ),
+                  child: TextFormField(
+                    validator: (value) {
+                      if (value ==
+                              null /* ||
+                                value.isEmpty ||
+                                value.length < 6 ||
+                                value != pass */
+                          ) {
+                        return 'Veuillez saisir un mot de passe';
+                      }
+                      if (value.isEmpty) {
+                        return 'Veuillez saisir un mot de passe';
+                      }
+                      if (value.length < 6) {
+                        return 'Mot de passe minimum : 6 \ncaractères';
+                      }
+                      if (value != pass) {
+                        return 'Entrez le même mot de passe';
+                      }
+                      return null;
+                    },
+                    onChanged: (e) => cpass = e,
+                    maxLines: 1,
+                    obscureText: !passwordConfrimationVisible,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.lock),
+                      hintText: 'Confirmer le mot de passe',
+                      hintStyle: heading6.copyWith(color: textGrey),
+                      suffixIcon: IconButton(
+                        color: textGrey,
+                        splashRadius: 1,
+                        icon: Icon(passwordConfrimationVisible
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined),
+                        onPressed: () {
+                          setState(() {
+                            passwordConfrimationVisible =
+                                !passwordConfrimationVisible;
+                          });
+                        },
+                      ),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ];
+
   @override
   Widget build(BuildContext context) {
     return loadingg
@@ -95,31 +329,120 @@ class _RegisterPageState extends State<RegisterPage> {
                             width: 99,
                             height: 4,
                           ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Un compte? ",
+                                style: regular16pt.copyWith(color: textGrey),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginPage()));
+                                },
+                                child: Text(
+                                  'Se connecter',
+                                  style:
+                                      regular16pt.copyWith(color: primaryBlue),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 30,
+                      Stepper(
+                        physics: const ClampingScrollPhysics(),
+                        currentStep: currentStep,
+                        steps: getSteps(),
+                        onStepTapped: (index) {
+                          setState(() {
+                            currentStep = index;
+                          });
+                        },
+                        onStepContinue: () async {
+                          final isLastStep =
+                              currentStep == getSteps().length - 1;
+                          if (isLastStep) {
+                            if (keys.currentState!.validate()) {
+                              print("$email $pass");
+                              setState(() {
+                                loadingg = true;
+                              });
+
+                              bool register = await auth.signup(
+                                  email, pass, nom, prenom, numero, image);
+                              if (register == false) {
+                                setState(() {
+                                  loadingg = false;
+                                });
+                              }
+
+                              if (register) {
+                                // ignore: use_build_context_synchronously
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MyHomePage()),
+                                );
+                              }
+
+                              print('Vérification effectuée mail');
+                            }
+                          }
+                          if (currentStep != 1) {
+                            setState(() {
+                              currentStep++;
+                            });
+                          }
+                        },
+                        onStepCancel: () {
+                          if (currentStep != 0) {
+                            setState(() {
+                              currentStep--;
+                            });
+                          }
+                        },
+                        controlsBuilder:
+                            (BuildContext context, ControlsDetails details) {
+                          final isLastStep =
+                              currentStep == getSteps().length - 1;
+                          return Container(
+                            margin: const EdgeInsets.only(top: 50),
+                            child: Row(
+                              children: [
+                                if (currentStep != 0)
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: details.onStepCancel,
+                                      child: const Text('Retour'),
+                                    ),
+                                  ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    onPressed: details.onStepContinue,
+                                    child: Text(
+                                        isLastStep ? 'S\'inscrire' : 'Suivant'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
-                      Form(
+
+                      /* Form(
                         key: keys,
                         child: Column(
                           children: [
-                            /*  IntlPhoneField(
-                        initialCountryCode: 'ML',
-                        onChanged: (e) {
-                          numero = e.completeNumber;
-                          numero = e as String;
-                        },
-                        
-                        decoration: InputDecoration(
-                          hintText: 'Numéro',
-                          prefixIcon: const Icon(Icons.person),
-                          hintStyle: heading6.copyWith(color: textGrey),
-                          border: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                          ),
-                        ),
-                      ), */
                             Container(
                               decoration: BoxDecoration(
                                 color: textWhiteGrey,
@@ -406,7 +729,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                         ],
-                      ),
+                      ), */
                     ],
                   ),
                 ),

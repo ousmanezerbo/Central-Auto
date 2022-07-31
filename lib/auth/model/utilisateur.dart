@@ -2,6 +2,7 @@ import 'package:intl_phone_field/phone_number.dart';
 
 class UserM {
   String id, email, nom, prenom, numero, image;
+
   /*  bool admin, enable; */
   static UserM? currentUser;
   UserM({
@@ -11,6 +12,7 @@ class UserM {
     required this.prenom,
     required this.numero,
     required this.image,
+
     /* this.image,
       this.admin = false,
       this.enable = true */
@@ -22,6 +24,7 @@ class UserM {
         prenom: j['prenom'],
         numero: j['numero'],
         image: j['image'],
+
         /*  image: j['image'],
       admin: j['admin'],
       enable: j["enable"] */

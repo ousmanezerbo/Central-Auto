@@ -51,25 +51,31 @@ class _ProfilePageState extends State<ProfilePage> {
                   toolbarHeight: 10,
                 ),
                 const Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(bottom: 20),
-                        child: Text(
-                          'Modifier le profil',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.blue,
-                          ),
-                        ))),
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: Text(
+                      'Modifier le profil',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
                 InkWell(
-                    onTap: () {
-                      navigateSecondPage(EditImagePage());
-                    },
-                    child: DisplayImage(
-                      imagePath:
-                          streamSnapshot.data!['image'] ?? Icon(Icons.person),
-                      onPressed: () {},
-                    )),
+                  onTap: () {
+                    navigateSecondPage(const EditImagePage());
+                  },
+                  child: DisplayImage(
+                    imagePath: streamSnapshot.data!['image'] ??
+                        const Icon(Icons.person),
+                    onPressed: () {},
+                  ),
+                ),
                 buildUserInfoDisplay(
                     streamSnapshot.data!['prenom'] +
                         ' ' +

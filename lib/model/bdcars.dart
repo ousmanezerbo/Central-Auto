@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
 import 'package:central_auto/model/cars.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -35,5 +36,13 @@ class CarDB {
     } catch (e) {
       return false;
     }
+  }
+
+  Stream<List<Car>> get getcar {
+    return CarCol.snapshots().map((car) {
+      return car.docs
+          .map((e) => Car.fromJson(e.data() as Map<String, dynamic>, id: e.id))
+          .toList();
+    });
   }
 }

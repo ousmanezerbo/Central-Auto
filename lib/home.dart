@@ -1,8 +1,14 @@
+import 'package:central_auto/auth/services/db.dart';
 import 'package:central_auto/carClick.dart';
+import 'package:central_auto/carScreen/carAdd.dart';
+import 'package:central_auto/carScreen/listCars.dart';
+import 'package:central_auto/model/cars.dart';
+import 'package:central_auto/navBar/main_navigation.dart';
 import 'package:central_auto/navBar/setting_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'AuthSms/function.dart';
 import 'film/film.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -53,7 +59,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   State<MyAppBar> createState() => _MyAppBarState();
 }
 
-class _MyAppBarState extends State<MyAppBar> {
+class _MyAppBarState extends State<MyAppBar> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -67,13 +73,15 @@ class _MyAppBarState extends State<MyAppBar> {
           size: 30,
         ),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (ctx) => CarAdd()));
+          /* Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) {
-              return caClick();
+              return CarInformation();
               //const MyAppBarCar()
             },
             fullscreenDialog: true,
-          ));
+          )); */
         },
       ),
       actions: [
@@ -297,6 +305,8 @@ class _carouselState extends State<carousel> {
   ];
   @override
   Widget build(BuildContext context) {
+    //final List<Car> cars = Provider.of<List<Car>>(context);
+    // print(cars);
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -304,6 +314,8 @@ class _carouselState extends State<carousel> {
             const SizedBox(height: 20),
             Column(
               children: [
+                Image.asset('assets/images/logoCut.png'),
+                const SizedBox(height: 50),
                 CustomCarouselSlider(
                   items: itemList,
                   height: 260,

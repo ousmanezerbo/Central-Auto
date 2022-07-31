@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:central_auto/model/bdcars.dart';
 import 'package:central_auto/model/cars.dart';
 import 'package:central_auto/share/getImage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,10 +18,10 @@ class AppPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* appBar: AppBar(
+      appBar: AppBar(
         title: Text('Ajouter une voiture'),
         centerTitle: true,
-      ), */
+      ),
       body: AddPage(),
     );
   }
@@ -51,7 +52,7 @@ class _AddPageState extends State<AddPage> {
     return loadingg
         ? Loading()
         : Scaffold(
-            resizeToAvoidBottomInset: false,
+            resizeToAvoidBottomInset: true,
             body: SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.fromLTRB(10, 50, 10, 10),
@@ -60,19 +61,6 @@ class _AddPageState extends State<AddPage> {
                   child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                        height: 60,
-                        color: Colors.blue,
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Center(
-                          child: Text(
-                            'Entrez les informations du vehicule',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ),
-                      ),
                       const SizedBox(
                         height: 25,
                       ),
@@ -254,7 +242,8 @@ class _AddPageState extends State<AddPage> {
                               borderRadius: BorderRadius.circular(12)),
                           color: Colors.blue,
                           onPressed: () async {
-                            if (key.currentState!.validate()) {
+                            if (key.currentState!.validate() &&
+                                images.isNotEmpty) {
                               setState(() {
                                 loadingg = true;
                               });
@@ -262,6 +251,7 @@ class _AddPageState extends State<AddPage> {
                               car.Model = Model;
                               car.Prix = Prix;
                               car.Annee = Annee;
+                              car.uid = FirebaseAuth.instance.currentUser?.uid;
                               car.images = [];
                               for (var i = 0; i < images.length; i++) {
                                 String? urlImage = await CarDB()
@@ -278,6 +268,15 @@ class _AddPageState extends State<AddPage> {
                                   } else
                                     (loadingg = false);
                                   Navigator.of(context).pop();
+                                  const text = "L'ajout à bien été éffectué";
+                                  final snackBar = SnackBar(
+                                    content: Text(text),
+                                    duration: Duration(minutes: 60),
+                                    action: SnackBarAction(
+                                        label: 'D\'accord', onPressed: () {}),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 }
                               }
                             }

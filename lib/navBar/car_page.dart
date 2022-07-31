@@ -1,14 +1,16 @@
+import 'package:central_auto/carClick.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../film/add_movie_page.dart';
 import '../home.dart';
 import 'package:get/get.dart';
+import 'package:central_auto/model/cars.dart';
 
 class carPage extends StatefulWidget {
-  const carPage({Key? key}) : super(key: key);
-
+  carPage({Key? key}) : super(key: key);
   @override
   State<carPage> createState() => _carPageState();
 }
@@ -16,21 +18,22 @@ class carPage extends StatefulWidget {
 class _carPageState extends State<carPage> {
   @override
   Widget build(BuildContext context) {
-    return const MyAppBarCar();
+    return MyAppBarCar();
   }
 }
 
 class MyAppBarCar extends StatefulWidget {
-  const MyAppBarCar({Key? key}) : super(key: key);
+  MyAppBarCar({Key? key}) : super(key: key);
 
   @override
   State<MyAppBarCar> createState() => _MyAppBarCarState();
 }
 
-class _MyAppBarCarState extends State<MyAppBarCar> {
+class _MyAppBarCarState extends State<MyAppBarCar>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AppBarCar(),
     );
@@ -38,7 +41,7 @@ class _MyAppBarCarState extends State<MyAppBarCar> {
 }
 
 class AppBarCar extends StatelessWidget {
-  const AppBarCar({Key? key}) : super(key: key);
+  AppBarCar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,11 +76,15 @@ class AppBarCar extends StatelessWidget {
 }
 
 class CarInformation extends StatefulWidget {
+  CarInformation({Key? key}) : super(key: key);
+
   @override
   _CarInformationState createState() => _CarInformationState();
 }
 
 class _CarInformationState extends State<CarInformation> {
+  Car? car;
+  _CarInformationState({this.car});
   final Stream<QuerySnapshot> _carStream =
       FirebaseFirestore.instance.collection('Cars').snapshots();
 
@@ -117,96 +124,105 @@ class _CarInformationState extends State<CarInformation> {
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
-              return Container(
-                height: 300,
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(30, 30, 30, 10),
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 200, 209, 218),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(20),
+              return InkWell(
+                onTap: (() {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => carClick(car: car!),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade200,
-                        spreadRadius: 4,
-                        blurRadius: 6,
-                        offset: const Offset(0, 3),
-                      )
-                    ]),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 248,
-                      //color: Colors.amber,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        image: DecorationImage(
-                            image: NetworkImage(data['images'][0]),
-                            fit: BoxFit.cover),
+                  );
+                }),
+                child: Container(
+                  height: 300,
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(30, 30, 30, 10),
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 200, 209, 218),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
                       ),
-                      child: Stack(children: [
-                        Positioned(
-                            top: 10,
-                            right: -10,
-                            child: MaterialButton(
-                                color: Colors.white,
-                                shape: CircleBorder(),
-                                onPressed: () {},
-                                child: const Icon(
-                                  Icons.favorite_border_rounded,
-                                  color: Colors.lightBlue,
-                                  size: 20,
-                                )))
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.shade200,
+                          spreadRadius: 4,
+                          blurRadius: 6,
+                          offset: const Offset(0, 3),
+                        )
                       ]),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            data['Marque'],
-                            style: GoogleFonts.nunito(
-                                fontSize: 11, fontWeight: FontWeight.w800),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 248,
+                        //color: Colors.amber,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            data['Model'],
-                            style: GoogleFonts.nunito(
-                                fontSize: 11, fontWeight: FontWeight.w800),
-                          ),
-                          /* SizedBox(
+                          image: DecorationImage(
+                              image: NetworkImage(data['images'][0]),
+                              fit: BoxFit.cover),
+                        ),
+                        child: Stack(children: [
+                          Positioned(
+                              top: 10,
+                              right: -10,
+                              child: MaterialButton(
+                                  color: Colors.white,
+                                  shape: CircleBorder(),
+                                  onPressed: () {},
+                                  child: const Icon(
+                                    Icons.favorite_border_rounded,
+                                    color: Colors.lightBlue,
+                                    size: 20,
+                                  )))
+                        ]),
+                      ),
+                      Container(
+                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              data['Marque'],
+                              style: GoogleFonts.nunito(
+                                  fontSize: 11, fontWeight: FontWeight.w800),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              data['Model'],
+                              style: GoogleFonts.nunito(
+                                  fontSize: 11, fontWeight: FontWeight.w800),
+                            ),
+                            /* SizedBox(
                           width: 81,
                         ), */
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      // margin: EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            data['Annee'],
-                            style: GoogleFonts.nunito(
-                                fontSize: 9, fontWeight: FontWeight.w800),
-                          ),
-                          Text(
-                            data['Prix'] + " Fcfa",
-                            style: GoogleFonts.nunito(
-                                fontSize: 11, fontWeight: FontWeight.w800),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                      Container(
+                        margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        // margin: EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              data['Annee'],
+                              style: GoogleFonts.nunito(
+                                  fontSize: 9, fontWeight: FontWeight.w800),
+                            ),
+                            Text(
+                              data['Prix'] + " Fcfa",
+                              style: GoogleFonts.nunito(
+                                  fontSize: 11, fontWeight: FontWeight.w800),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
             }).toList(),
