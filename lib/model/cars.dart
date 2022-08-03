@@ -21,6 +21,7 @@ class Car {
   String? Carburant;
   String? Transmission;
   String? Detailsup;
+  List<String>? Favoris;
 
   Car({
     this.id,
@@ -38,6 +39,7 @@ class Car {
     this.Carburant,
     this.Transmission,
     this.Detailsup,
+    this.Favoris,
   });
 
   factory Car.fromFirestore(
@@ -61,6 +63,8 @@ class Car {
       Carburant: data?['Carburant'],
       Transmission: data?['Transmission'],
       Detailsup: data?['Detailsup'],
+      Favoris:
+          data?['Favoris'] is Iterable ? List.from(data?['Favoris']) : null,
     );
   }
 
@@ -80,6 +84,7 @@ class Car {
       if (Carburant != null) 'Carburant': Carburant,
       if (Transmission != null) 'Transmission': Transmission,
       if (Detailsup != null) 'Detailsup': Detailsup,
+      if (Favoris != null) 'Favoris': Favoris,
     };
   }
 
@@ -99,6 +104,9 @@ class Car {
         Carburant: map["Carburant"],
         Transmission: map["Transmission"],
         Detailsup: map["Detailsup"],
+        Favoris: map["Favoris"] == null
+            ? []
+            : map["Favoris"].map<String>((i) => i as String).toList(),
       );
 }
 

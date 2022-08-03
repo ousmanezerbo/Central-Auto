@@ -15,6 +15,7 @@ import 'edit_image.dart';
 import 'edit_name.dart';
 import 'edit_phone.dart';
 
+
 // This class handles the Page to dispaly the user's info on the "Edit Profile" Screen
 class ProfilePage extends StatefulWidget {
   @override
@@ -115,7 +116,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                             deconnection();
                                             Navigator.of(context).pop();
                                           },
-                                          child: Text('Oui')),
+                                          child: const Text('Oui',
+                                              style: TextStyle(
+                                                  color: Colors.red))),
                                       // ignore: deprecated_member_use
                                       FlatButton(
                                         onPressed: () async {
@@ -125,7 +128,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     const SearchPage())); */
                                           Navigator.of(context).pop();
                                         },
-                                        child: Text('Non'),
+                                        child: const Text('Non',
+                                            style:
+                                                TextStyle(color: Colors.blue)),
                                       ),
                                     ],
                                   );

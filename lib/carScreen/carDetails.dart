@@ -45,14 +45,14 @@ class _CarDetailsState extends State<CarDetails> {
       floatingActionButton: SpeedDial(
         overlayColor: Colors.black,
         overlayOpacity: 0.4,
-        label: const Text('Contact du vendeur'),
+        label: const Text('Prendre contact'),
         spacing: 25,
         spaceBetweenChildren: 11,
         buttonSize: const Size(35, 40),
         children: [
           SpeedDialChild(
             child: const Icon(Icons.mail),
-            label: 'Mail',
+            label: 'Email',
             backgroundColor: Colors.white,
             foregroundColor: Colors.blue,
             onTap: () async {
@@ -286,7 +286,7 @@ class _CarDetailsState extends State<CarDetails> {
             Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -312,7 +312,7 @@ class _CarDetailsState extends State<CarDetails> {
                     ],
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 90,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,34 +346,8 @@ class _CarDetailsState extends State<CarDetails> {
             Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/images/rendez-vous.png',
-                        height: 30,
-                        width: 30,
-                      ),
-                      Text(
-                        'Année',
-                        style: GoogleFonts.nunito(
-                            fontSize: 10, fontWeight: FontWeight.w800),
-                      ),
-                      const SizedBox(
-                        height: 2,
-                      ),
-                      Text(
-                        widget.car.Annee.toString(),
-                        style: GoogleFonts.nunito(
-                            fontSize: 10, fontWeight: FontWeight.w800),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -397,6 +371,32 @@ class _CarDetailsState extends State<CarDetails> {
                       ),
                     ],
                   ),
+                  const SizedBox(
+                    width: 90,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/rendez-vous.png',
+                        height: 30,
+                        width: 30,
+                      ),
+                      Text(
+                        'Année',
+                        style: GoogleFonts.nunito(
+                            fontSize: 10, fontWeight: FontWeight.w800),
+                      ),
+                      const SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        widget.car.Annee.toString(),
+                        style: GoogleFonts.nunito(
+                            fontSize: 10, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -406,7 +406,7 @@ class _CarDetailsState extends State<CarDetails> {
             Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -432,7 +432,7 @@ class _CarDetailsState extends State<CarDetails> {
                     ],
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 140,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,7 +451,7 @@ class _CarDetailsState extends State<CarDetails> {
                         height: 2,
                       ),
                       Text(
-                        widget.car.Puissance.toString(),
+                        '${widget.car.Puissance} ch',
                         style: GoogleFonts.nunito(
                             fontSize: 10, fontWeight: FontWeight.w800),
                       ),
@@ -466,7 +466,7 @@ class _CarDetailsState extends State<CarDetails> {
             Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -492,7 +492,7 @@ class _CarDetailsState extends State<CarDetails> {
                     ],
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 80,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -523,6 +523,15 @@ class _CarDetailsState extends State<CarDetails> {
             const SizedBox(
               height: 10,
             ),
+            const Divider(
+              color: Colors.black,
+            ),
+            const Divider(
+              color: Colors.black,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             Container(
               margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: Column(
@@ -539,9 +548,10 @@ class _CarDetailsState extends State<CarDetails> {
                         fontSize: 10, fontWeight: FontWeight.w800),
                   ),
                   const SizedBox(
-                    height: 2,
+                    height: 6,
                   ),
                   Text(
+                    textAlign: TextAlign.justify,
                     widget.car.Detailsup.toString(),
                     style: GoogleFonts.nunito(
                         fontSize: 10, fontWeight: FontWeight.w800),
@@ -549,6 +559,71 @@ class _CarDetailsState extends State<CarDetails> {
                   ),
                 ],
               ),
+            ),
+            const Divider(
+              color: Colors.black,
+            ),
+            const Text('Informations du vendeur'),
+            const Divider(
+              color: Colors.black,
+            ),
+            Container(
+              margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/user.png',
+                    height: 40,
+                    width: 40,
+                  ),
+                  Text(
+                    'Nom: ',
+                    style: GoogleFonts.nunito(
+                        fontSize: 15, fontWeight: FontWeight.w800),
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  if (widget.user != null)
+                    Text(
+                      widget.user!.nom.toString(),
+                      style: GoogleFonts.nunito(
+                          fontSize: 17, fontWeight: FontWeight.w800),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 13,
+            ),
+            Container(
+              margin: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/images/user.png',
+                    height: 40,
+                    width: 40,
+                  ),
+                  Text(
+                    'Prénom: ',
+                    style: GoogleFonts.nunito(
+                        fontSize: 15, fontWeight: FontWeight.w800),
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  if (widget.user != null)
+                    Text(
+                      widget.user!.prenom.toString(),
+                      style: GoogleFonts.nunito(
+                          fontSize: 17, fontWeight: FontWeight.w800),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 65,
             ),
           ],
         ),

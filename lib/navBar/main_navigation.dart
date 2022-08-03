@@ -1,8 +1,10 @@
 import 'package:central_auto/auth/services/db.dart';
-import 'package:central_auto/film/add_movie_page.dart';
+import 'package:central_auto/carScreen/carFavoris.dart';
+
 import 'package:central_auto/home.dart';
 import 'package:central_auto/model/cars.dart';
 import 'package:central_auto/navBar/car_page.dart';
+
 //import 'package:central_auto/nouveau/homeCar.dart';
 import 'package:central_auto/settingUser/pages/profile_page.dart';
 import 'package:flutter/material.dart';
@@ -25,17 +27,17 @@ class _MainNavigationState extends State<MainNavigation> {
   int selectedPage = 0;
   final pages = [
     const MyAppHome(),
-    //carPage(),
-
-    //const AppPage(),
     StreamProvider<List<Car>>.value(
       value: DBServices().getcar,
       initialData: const [],
-      child: const listCar(),
+      child: const ListCar(),
     ),
-    const RegisterPage(),
-    //HomePagess(),
-    //const SettingPage(),
+    StreamProvider<List<Car>>.value(
+      value: CarDB().getCarfav(),
+      initialData: const [],
+      child: const CarFav(),
+    ),
+    // CarFav(),
     ProfilePage(),
   ];
 

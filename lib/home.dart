@@ -1,17 +1,5 @@
-import 'package:central_auto/auth/services/db.dart';
-import 'package:central_auto/carClick.dart';
-import 'package:central_auto/carScreen/carAdd.dart';
-import 'package:central_auto/carScreen/listCars.dart';
-import 'package:central_auto/model/cars.dart';
-import 'package:central_auto/navBar/main_navigation.dart';
-import 'package:central_auto/navBar/setting_page.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'AuthSms/function.dart';
-import 'film/film.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 
 class MyAppHome extends StatelessWidget {
@@ -42,7 +30,6 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Searchection(),
               carousel(),
             ],
           ),
@@ -73,23 +60,10 @@ class _MyAppBarState extends State<MyAppBar> with TickerProviderStateMixin {
           size: 30,
         ),
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (ctx) => CarAdd()));
-          /* Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) {
-              return CarInformation();
-              //const MyAppBarCar()
-            },
-            fullscreenDialog: true,
-          )); */
+          /*  Navigator.of(context)
+              .push(MaterialPageRoute(builder: (ctx) => Search())); */
         },
       ),
-      actions: [
-        IconButton(
-            onPressed: () => Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => const SearchPage())),
-            icon: const Icon(Icons.search))
-      ],
     );
   }
 }
@@ -106,104 +80,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          // The search area here
-          title: Container(
-        width: double.infinity,
-        height: 40,
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5)),
-        child: Center(
-          child: TextField(
-            decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    /* Clear the search field */
-                  },
-                ),
-                hintText: 'Recherche...',
-                border: InputBorder.none),
-          ),
-        ),
-      )),
+      appBar: AppBar(),
     );
-  }
-}
-
-class Searchection extends StatefulWidget {
-  const Searchection({Key? key}) : super(key: key);
-
-  @override
-  State<Searchection> createState() => _SearchectionState();
-}
-
-class _SearchectionState extends State<Searchection> {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  User? user = FirebaseAuth.instance.currentUser;
-
-  CollectionReference usersCollection =
-      FirebaseFirestore.instance.collection('Cars');
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        /* 
-      height: 100,
-      color: Colors.grey[200],
-      padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 35),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 4,
-                          offset: Offset(0, 3),
-                        ),
-                      ]),
-                  child: const TextField(
-                    decoration: InputDecoration(
-                        hintText: 'Recherche',
-                        contentPadding: EdgeInsets.all(10),
-                        border: InputBorder.none),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Container(
-                height: 50,
-                width: 50,
-                decoration: const BoxDecoration(
-                  color: Colors.amber,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 4,
-                        offset: Offset(0, 4)),
-                  ],
-                  borderRadius: BorderRadius.all(Radius.circular(50)),
-                ),
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(shape: const CircleBorder()),
-                  child: const Icon(Icons.search),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ), */
-        );
   }
 }
 
@@ -239,7 +117,7 @@ class _carouselState extends State<carousel> {
         color: Colors.white,
       ),
       leftSubtitle: '2016',
-      rightSubtitle: '6000000 Fcfa',
+      rightSubtitle: '6.000.000 Fcfa',
       rightSubtitleTextStyle: const TextStyle(
         fontSize: 12,
         color: Colors.white,
@@ -261,13 +139,13 @@ class _carouselState extends State<carousel> {
           stops: const [0.0, 1.0],
         ),
       ),
-      title: 'Toyota Corola',
+      title: 'Mercedes Class-e',
       titleTextStyle: const TextStyle(
         fontSize: 12,
         color: Colors.white,
       ),
       leftSubtitle: '2020',
-      rightSubtitle: '15000000 Fcfa',
+      rightSubtitle: '15.000.000 Fcfa',
       rightSubtitleTextStyle: const TextStyle(
         fontSize: 12,
         color: Colors.white,
@@ -295,7 +173,7 @@ class _carouselState extends State<carousel> {
         color: Colors.white,
       ),
       leftSubtitle: '2019',
-      rightSubtitle: '600000000 Fcfa',
+      rightSubtitle: '60.0000.000 Fcfa',
       rightSubtitleTextStyle: const TextStyle(
         fontSize: 12,
         color: Colors.white,
